@@ -1,0 +1,1594 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pizzeria & Craft House - Menú Digital</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- FontAwesome Icons CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: "#fff7ed",
+                100: "#ffedd5",
+                500: "#ea580c",
+                600: "#d97706",
+                700: "#c2410c",
+                800: "#9a3412",
+                900: "#7c2d12",
+                dark: "#1c1917",
+                surface: "#26221f",
+              },
+            },
+            fontFamily: {
+              title: ['"Playfair Display"', "serif"],
+              sans: ['"Plus Jakarta Sans"', "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Ocultar barra de scroll en contenedores scrolleables pero manteniendo funcionalidad */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-stone-50 text-stone-800 font-sans antialiased selection:bg-brand-500 selection:text-white pb-20"
+  >
+    <!-- Top Bar Contact Info -->
+    <div
+      class="bg-brand-dark text-stone-300 text-xs py-2 px-4 border-b border-stone-800"
+    >
+      <div
+        class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2"
+      >
+        <div class="flex items-center gap-4">
+          <span
+            ><i class="fa-solid fa-location-dot text-brand-500 mr-1.5"></i> Av.
+            Corrientes 1420, CABA</span
+          >
+          <span class="hidden md:inline"
+            ><i class="fa-regular fa-clock text-brand-500 mr-1.5"></i> Mar -
+            Dom: 19:00 a 01:00 hs</span
+          >
+        </div>
+        <div class="flex items-center gap-3">
+          <span
+            class="inline-flex items-center gap-1.5 bg-emerald-500/10 text-emerald-400 text-[11px] font-medium px-2 py-0.5 rounded-full border border-emerald-500/20"
+          >
+            <span
+              class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"
+            ></span>
+            Abierto para delivery & take away
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header
+      class="relative bg-brand-dark text-white bg-[url('https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1600&auto=format&fit=crop')] bg-cover bg-center bg-no-repeat bg-fixed"
+    >
+      <!-- Dark overlay with warm gradient -->
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/80 to-stone-900/70"
+      ></div>
+
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Navbar -->
+        <nav
+          class="flex items-center justify-between py-6 border-b border-stone-800/80"
+        >
+          <a href="#" class="flex items-center gap-3 group">
+            <div
+              class="w-11 h-11 rounded-2xl bg-gradient-to-br from-brand-500 to-amber-600 flex items-center justify-center text-stone-950 shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform"
+            >
+              <i class="fa-solid fa-pizza-slice text-xl"></i>
+            </div>
+            <div>
+              <span
+                class="font-title text-2xl font-bold tracking-tight block leading-none"
+                >Craft & Pizza</span
+              >
+              <span
+                class="text-[10px] tracking-widest uppercase text-brand-500 font-semibold"
+                >Artisanal House</span
+              >
+            </div>
+          </a>
+
+          <!-- Desktop Links -->
+          <div
+            class="hidden md:flex items-center gap-8 text-sm font-semibold text-stone-300"
+          >
+            <a
+              href="#"
+              class="text-white hover:text-brand-500 transition-colors"
+              >Inicio</a
+            >
+            <a href="#menu" class="hover:text-brand-500 transition-colors"
+              >Menú</a
+            >
+            <a href="#promos" class="hover:text-brand-500 transition-colors"
+              >Promociones</a
+            >
+            <a href="#contacto" class="hover:text-brand-500 transition-colors"
+              >Contacto</a
+            >
+          </div>
+
+          <!-- Cart trigger button -->
+          <button
+            id="cart-btn"
+            onclick="toggleCart()"
+            class="relative bg-stone-800/90 hover:bg-stone-700 text-white px-4 py-2.5 rounded-xl border border-stone-700/60 flex items-center gap-3 transition-all hover:shadow-lg"
+          >
+            <i class="fa-solid fa-basket-shopping text-brand-500"></i>
+            <span class="text-sm font-semibold hidden sm:inline"
+              >Mi Pedido</span
+            >
+            <span
+              id="cart-count"
+              class="bg-brand-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center"
+              >0</span
+            >
+          </button>
+        </nav>
+
+        <!-- Hero Banner Content -->
+        <div class="py-16 sm:py-24 text-center max-w-3xl mx-auto">
+          <span
+            class="inline-block bg-brand-500/20 text-brand-500 border border-brand-500/30 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 backdrop-blur-md"
+          >
+            🔥 Hornos a 450°C • Masa Madre 48hs
+          </span>
+          <h1
+            class="font-title text-4xl sm:text-6xl font-bold tracking-tight text-white mb-6 leading-tight"
+          >
+            Sabor Auténtico en Cada Porción
+          </h1>
+          <p
+            class="text-stone-300 text-base sm:text-lg mb-8 font-normal leading-relaxed"
+          >
+            Ingredientes frescos de estación, quesos seleccionados y cerveza
+            artesanal tirada de microcervecerías locales.
+          </p>
+
+          <!-- Quick Info Badges -->
+          <div
+            class="flex flex-wrap justify-center items-center gap-4 text-xs font-medium text-stone-300"
+          >
+            <div
+              class="bg-stone-900/80 backdrop-blur border border-stone-800 px-4 py-2 rounded-xl flex items-center gap-2"
+            >
+              <i class="fa-solid fa-motorcycle text-brand-500"></i> Envío
+              Promedio 35 min
+            </div>
+            <div
+              class="bg-stone-900/80 backdrop-blur border border-stone-800 px-4 py-2 rounded-xl flex items-center gap-2"
+            >
+              <i class="fa-solid fa-star text-amber-400"></i> 4.9/5 Reseñas de
+              clientes
+            </div>
+            <div
+              class="bg-stone-900/80 backdrop-blur border border-stone-800 px-4 py-2 rounded-xl flex items-center gap-2"
+            >
+              <i class="fa-solid fa-beer-mug-empty text-brand-500"></i> 12
+              Canillas activas
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Categories & Search Sticky Bar -->
+    <section
+      class="sticky top-0 z-30 bg-stone-900/95 backdrop-blur-md border-b border-stone-800 shadow-xl"
+      id="menu"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+        <div
+          class="flex flex-col md:flex-row items-center justify-between gap-4"
+        >
+          <!-- Category Pills Navigation -->
+          <div
+            class="flex items-center gap-2 overflow-x-auto w-full md:w-auto no-scrollbar py-1"
+          >
+            <button
+              onclick="filterCategory('todas')"
+              class="cat-btn active bg-brand-500 text-white font-semibold text-xs sm:text-sm px-4 py-2 rounded-xl text-nowrap transition-all shadow-md shadow-brand-500/20"
+            >
+              <i class="fa-solid fa-utensils mr-1.5"></i> Todo el Menú
+            </button>
+            <button
+              onclick="filterCategory('pizzas')"
+              class="cat-btn bg-stone-800 hover:bg-stone-700 text-stone-300 font-medium text-xs sm:text-sm px-4 py-2 rounded-xl text-nowrap transition-all"
+            >
+              🍕 Pizzas Artesanales
+            </button>
+            <button
+              onclick="filterCategory('hamburguesas')"
+              class="cat-btn bg-stone-800 hover:bg-stone-700 text-stone-300 font-medium text-xs sm:text-sm px-4 py-2 rounded-xl text-nowrap transition-all"
+            >
+              🍔 Smash Burgers
+            </button>
+            <button
+              onclick="filterCategory('entradas')"
+              class="cat-btn bg-stone-800 hover:bg-stone-700 text-stone-300 font-medium text-xs sm:text-sm px-4 py-2 rounded-xl text-nowrap transition-all"
+            >
+              🍟 Entradas & Acompañamientos
+            </button>
+            <button
+              onclick="filterCategory('bebidas')"
+              class="cat-btn bg-stone-800 hover:bg-stone-700 text-stone-300 font-medium text-xs sm:text-sm px-4 py-2 rounded-xl text-nowrap transition-all"
+            >
+              🍺 Cervezas & Bebidas
+            </button>
+            <button
+              onclick="filterCategory('postres')"
+              class="cat-btn bg-stone-800 hover:bg-stone-700 text-stone-300 font-medium text-xs sm:text-sm px-4 py-2 rounded-xl text-nowrap transition-all"
+            >
+              🍰 Postres
+            </button>
+          </div>
+
+          <!-- Search Input -->
+          <div class="relative w-full md:w-64">
+            <input
+              type="text"
+              id="search-input"
+              onkeyup="searchMenu()"
+              placeholder="Buscar plato o ingrediente..."
+              class="w-full bg-stone-800 text-stone-200 text-xs sm:text-sm placeholder-stone-400 rounded-xl pl-9 pr-4 py-2 border border-stone-700 focus:outline-none focus:border-brand-500 transition-colors"
+            />
+            <i
+              class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-stone-400 text-xs"
+            ></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+      <!-- Section Title Dynamic -->
+      <div
+        class="flex items-center justify-between mb-8 pb-4 border-b border-stone-200"
+      >
+        <div>
+          <h2
+            id="section-title"
+            class="font-title text-3xl font-bold text-stone-900"
+          >
+            Nuestra Carta Completa
+          </h2>
+          <p class="text-stone-500 text-sm mt-1">
+            Seleccioná las variantes y agregá directamente a tu pedido.
+          </p>
+        </div>
+        <span
+          id="item-count"
+          class="text-xs font-bold bg-stone-200 text-stone-700 px-3 py-1 rounded-full"
+          >12 Opciones disponibles</span
+        >
+      </div>
+
+      <!-- Product Cards Grid -->
+      <div
+        id="products-grid"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+      >
+        <!-- ITEM 1: PIZZA MARGHERITA -->
+        <article
+          class="product-card bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+          data-category="pizzas"
+          data-name="margherita napoletana pizza"
+        >
+          <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+            <img
+              src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?q=80&w=800&auto=format&fit=crop"
+              alt="Margherita Napoletana"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <span
+              class="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow"
+            >
+              Clásica Italiana
+            </span>
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3
+              class="font-title text-xl font-bold text-stone-900 group-hover:text-brand-600 transition-colors"
+            >
+              Margherita Napoletana
+            </h3>
+            <p
+              class="text-stone-500 text-xs mt-2 mb-4 leading-relaxed line-clamp-2"
+            >
+              Salsa de tomate San Marzano, fior di latte fresco, albahaca
+              orgánica y aceite de oliva virgen extra.
+            </p>
+
+            <div class="mt-auto space-y-3">
+              <div
+                class="flex items-center justify-between text-xs font-semibold text-stone-600 bg-stone-50 p-1.5 rounded-lg border border-stone-200/60"
+              >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-p1"
+                    value="grande"
+                    checked
+                    onclick="updatePrice(this, 'p1-price', 12500)"
+                    class="accent-brand-500"
+                  />
+                  Grande (8 porc)</label
+                >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-p1"
+                    value="individual"
+                    onclick="updatePrice(this, 'p1-price', 8500)"
+                    class="accent-brand-500"
+                  />
+                  Indiv.</label
+                >
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <span id="p1-price" class="text-lg font-bold text-stone-900"
+                  >$12.500</span
+                >
+                <button
+                  onclick="
+                    addToCart(
+                      'Margherita Napoletana',
+                      'p1-price',
+                      'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?q=80&w=800&auto=format&fit=crop',
+                    )
+                  "
+                  class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-brand-500/20"
+                >
+                  <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 2: PIZZA DIAVOLA -->
+        <article
+          class="product-card bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+          data-category="pizzas"
+          data-name="diavola pepperoni picante pizza"
+        >
+          <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+            <img
+              src="https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=800&auto=format&fit=crop"
+              alt="Diavola Pepperoni"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <span
+              class="absolute top-3 left-3 bg-brand-500 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow"
+            >
+              🔥 Más Vendida
+            </span>
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3
+              class="font-title text-xl font-bold text-stone-900 group-hover:text-brand-600 transition-colors"
+            >
+              Diavola Pepperoni
+            </h3>
+            <p
+              class="text-stone-500 text-xs mt-2 mb-4 leading-relaxed line-clamp-2"
+            >
+              Salsa de tomate especiada, mozzarella de canasta, pepperoni
+              artesanal crocante y toque de miel picante.
+            </p>
+
+            <div class="mt-auto space-y-3">
+              <div
+                class="flex items-center justify-between text-xs font-semibold text-stone-600 bg-stone-50 p-1.5 rounded-lg border border-stone-200/60"
+              >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-p2"
+                    value="grande"
+                    checked
+                    onclick="updatePrice(this, 'p2-price', 14200)"
+                    class="accent-brand-500"
+                  />
+                  Grande (8 porc)</label
+                >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-p2"
+                    value="individual"
+                    onclick="updatePrice(this, 'p2-price', 9800)"
+                    class="accent-brand-500"
+                  />
+                  Indiv.</label
+                >
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <span id="p2-price" class="text-lg font-bold text-stone-900"
+                  >$14.200</span
+                >
+                <button
+                  onclick="
+                    addToCart(
+                      'Diavola Pepperoni',
+                      'p2-price',
+                      'https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=800&auto=format&fit=crop',
+                    )
+                  "
+                  class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-brand-500/20"
+                >
+                  <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 3: PIZZA FUGAZZETTA STUFFED -->
+        <article
+          class="product-card bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+          data-category="pizzas"
+          data-name="fugazzeta rellena queso cebolla pizza"
+        >
+          <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+            <img
+              src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=800&auto=format&fit=crop"
+              alt="Fugazzeta Rellena"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <span
+              class="absolute top-3 left-3 bg-amber-600 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow"
+            >
+              Especialidad
+            </span>
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3
+              class="font-title text-xl font-bold text-stone-900 group-hover:text-brand-600 transition-colors"
+            >
+              Fugazzeta Rellena Craft
+            </h3>
+            <p
+              class="text-stone-500 text-xs mt-2 mb-4 leading-relaxed line-clamp-2"
+            >
+              Masa dorada rellena con 500g de mozzarella y queso provolone,
+              cubierta con cebollas dulces salteadas y orégano fresco.
+            </p>
+
+            <div class="mt-auto space-y-3">
+              <div
+                class="flex items-center justify-between text-xs font-semibold text-stone-600 bg-stone-50 p-1.5 rounded-lg border border-stone-200/60"
+              >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-p3"
+                    value="grande"
+                    checked
+                    onclick="updatePrice(this, 'p3-price', 15800)"
+                    class="accent-brand-500"
+                  />
+                  Grande (8 porc)</label
+                >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-p3"
+                    value="individual"
+                    onclick="updatePrice(this, 'p3-price', 10500)"
+                    class="accent-brand-500"
+                  />
+                  Indiv.</label
+                >
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <span id="p3-price" class="text-lg font-bold text-stone-900"
+                  >$15.800</span
+                >
+                <button
+                  onclick="
+                    addToCart(
+                      'Fugazzeta Rellena Craft',
+                      'p3-price',
+                      'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=800&auto=format&fit=crop',
+                    )
+                  "
+                  class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-brand-500/20"
+                >
+                  <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 4: PIZZA FUNGHI & TRUFFLE -->
+        <article
+          class="product-card bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+          data-category="pizzas"
+          data-name="funghi trufa hongos pizza gourmet"
+        >
+          <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+            <img
+              src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop"
+              alt="Funghi & Truffle"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <span
+              class="absolute top-3 left-3 bg-stone-900 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow"
+            >
+              NUEVA • Gourmet
+            </span>
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3
+              class="font-title text-xl font-bold text-stone-900 group-hover:text-brand-600 transition-colors"
+            >
+              Funghi & Truffle Oil
+            </h3>
+            <p
+              class="text-stone-500 text-xs mt-2 mb-4 leading-relaxed line-clamp-2"
+            >
+              Mix de hongos portobello salteados al vino blanco, crema de ajo,
+              mozzarella fior di latte y aceite de trufas negras.
+            </p>
+
+            <div class="mt-auto space-y-3">
+              <div
+                class="flex items-center justify-between text-xs font-semibold text-stone-600 bg-stone-50 p-1.5 rounded-lg border border-stone-200/60"
+              >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-p4"
+                    value="grande"
+                    checked
+                    onclick="updatePrice(this, 'p4-price', 16500)"
+                    class="accent-brand-500"
+                  />
+                  Grande (8 porc)</label
+                >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-p4"
+                    value="individual"
+                    onclick="updatePrice(this, 'p4-price', 11200)"
+                    class="accent-brand-500"
+                  />
+                  Indiv.</label
+                >
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <span id="p4-price" class="text-lg font-bold text-stone-900"
+                  >$16.500</span
+                >
+                <button
+                  onclick="
+                    addToCart(
+                      'Funghi & Truffle Oil',
+                      'p4-price',
+                      'https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop',
+                    )
+                  "
+                  class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-brand-500/20"
+                >
+                  <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 5: SMASH BURGER DOUBLE CHEESE -->
+        <article
+          class="product-card bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+          data-category="hamburguesas"
+          data-name="smash burger cheeseburger doble carne"
+        >
+          <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+            <img
+              src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop"
+              alt="Double Smash Cheeseburger"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <span
+              class="absolute top-3 left-3 bg-brand-500 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow"
+            >
+              Favorita
+            </span>
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3
+              class="font-title text-xl font-bold text-stone-900 group-hover:text-brand-600 transition-colors"
+            >
+              Double Smash Cheese
+            </h3>
+            <p
+              class="text-stone-500 text-xs mt-2 mb-4 leading-relaxed line-clamp-2"
+            >
+              Dos medallas de carne vacuna de 100g costradas a la plancha,
+              quádruple cheddar cheddar americano, salsa mil islas y pan
+              brioche.
+            </p>
+
+            <div class="mt-auto space-y-3">
+              <div
+                class="flex items-center justify-between text-xs font-semibold text-stone-600 bg-stone-50 p-1.5 rounded-lg border border-stone-200/60"
+              >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-h1"
+                    value="doble"
+                    checked
+                    onclick="updatePrice(this, 'h1-price', 11500)"
+                    class="accent-brand-500"
+                  />
+                  Doble Carne</label
+                >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-h1"
+                    value="triple"
+                    onclick="updatePrice(this, 'h1-price', 13800)"
+                    class="accent-brand-500"
+                  />
+                  Triple (+ $2.300)</label
+                >
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <span id="h1-price" class="text-lg font-bold text-stone-900"
+                  >$11.500</span
+                >
+                <button
+                  onclick="
+                    addToCart(
+                      'Double Smash Cheese',
+                      'h1-price',
+                      'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop',
+                    )
+                  "
+                  class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-brand-500/20"
+                >
+                  <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 6: BACON CRUNCH BURGER -->
+        <article
+          class="product-card bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+          data-category="hamburguesas"
+          data-name="bacon burger cebolla crispy panceta"
+        >
+          <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+            <img
+              src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=800&auto=format&fit=crop"
+              alt="Bacon Crunch Burger"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3
+              class="font-title text-xl font-bold text-stone-900 group-hover:text-brand-600 transition-colors"
+            >
+              Bacon & Crispy Onion
+            </h3>
+            <p
+              class="text-stone-500 text-xs mt-2 mb-4 leading-relaxed line-clamp-2"
+            >
+              Carne seleccionada, trozos generosos de panceta ahumada crujiente,
+              aros de cebolla fritos, cheddar y barbacoa casera.
+            </p>
+
+            <div class="mt-auto space-y-3">
+              <div
+                class="flex items-center justify-between text-xs font-semibold text-stone-600 bg-stone-50 p-1.5 rounded-lg border border-stone-200/60"
+              >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-h2"
+                    value="doble"
+                    checked
+                    onclick="updatePrice(this, 'h2-price', 12800)"
+                    class="accent-brand-500"
+                  />
+                  Con Papas</label
+                >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-h2"
+                    value="sola"
+                    onclick="updatePrice(this, 'h2-price', 10800)"
+                    class="accent-brand-500"
+                  />
+                  Sin Papas</label
+                >
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <span id="h2-price" class="text-lg font-bold text-stone-900"
+                  >$12.800</span
+                >
+                <button
+                  onclick="
+                    addToCart(
+                      'Bacon & Crispy Onion Burger',
+                      'h2-price',
+                      'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=800&auto=format&fit=crop',
+                    )
+                  "
+                  class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-brand-500/20"
+                >
+                  <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 7: PAPAS BASTÓN CON CHEDDAR Y BACON -->
+        <article
+          class="product-card bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+          data-category="entradas"
+          data-name="papas fritas cheddar bacon entrada"
+        >
+          <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+            <img
+              src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=800&auto=format&fit=crop"
+              alt="Papas Craft Cheddar"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <span
+              class="absolute top-3 left-3 bg-amber-500 text-stone-950 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow"
+            >
+              Para Compartir
+            </span>
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3
+              class="font-title text-xl font-bold text-stone-900 group-hover:text-brand-600 transition-colors"
+            >
+              Papas Craft Loaded
+            </h3>
+            <p
+              class="text-stone-500 text-xs mt-2 mb-4 leading-relaxed line-clamp-2"
+            >
+              Papas bastón crujientes bañadas en fondue de queso cheddar
+              fundido, bacon picado y verdeo fresco.
+            </p>
+
+            <div class="mt-auto space-y-3">
+              <div
+                class="flex items-center justify-between text-xs font-semibold text-stone-600 bg-stone-50 p-1.5 rounded-lg border border-stone-200/60"
+              >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-e1"
+                    value="grande"
+                    checked
+                    onclick="updatePrice(this, 'e1-price', 7500)"
+                    class="accent-brand-500"
+                  />
+                  Porción Grande</label
+                >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-e1"
+                    value="media"
+                    onclick="updatePrice(this, 'e1-price', 5200)"
+                    class="accent-brand-500"
+                  />
+                  Media Porción</label
+                >
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <span id="e1-price" class="text-lg font-bold text-stone-900"
+                  >$7.500</span
+                >
+                <button
+                  onclick="
+                    addToCart(
+                      'Papas Craft Loaded',
+                      'e1-price',
+                      'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=800&auto=format&fit=crop',
+                    )
+                  "
+                  class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-brand-500/20"
+                >
+                  <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 8: BASTONES DE MOZZARELLA -->
+        <article
+          class="product-card bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+          data-category="entradas"
+          data-name="bastones mozzarella queso entrada"
+        >
+          <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+            <img
+              src="https://images.unsplash.com/photo-1531749668029-2db88e4276c7?q=80&w=800&auto=format&fit=crop"
+              alt="Bastones Mozzarella"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3
+              class="font-title text-xl font-bold text-stone-900 group-hover:text-brand-600 transition-colors"
+            >
+              Mozzarella Sticks (6u)
+            </h3>
+            <p
+              class="text-stone-500 text-xs mt-2 mb-4 leading-relaxed line-clamp-2"
+            >
+              Bastones empanados en panko crujiente repletos de mozzarella
+              derretida, acompañados de dip de pomodoro picante.
+            </p>
+
+            <div class="mt-auto space-y-3">
+              <div
+                class="flex items-center justify-between text-xs font-semibold text-stone-600 bg-stone-50 p-1.5 rounded-lg border border-stone-200/60"
+              >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-e2"
+                    value="6u"
+                    checked
+                    onclick="updatePrice(this, 'e2-price', 6800)"
+                    class="accent-brand-500"
+                  />
+                  6 Unidades</label
+                >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-e2"
+                    value="10u"
+                    onclick="updatePrice(this, 'e2-price', 9900)"
+                    class="accent-brand-500"
+                  />
+                  10 Unidades</label
+                >
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <span id="e2-price" class="text-lg font-bold text-stone-900"
+                  >$6.800</span
+                >
+                <button
+                  onclick="
+                    addToCart(
+                      'Mozzarella Sticks',
+                      'e2-price',
+                      'https://images.unsplash.com/photo-1531749668029-2db88e4276c7?q=80&w=800&auto=format&fit=crop',
+                    )
+                  "
+                  class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-brand-500/20"
+                >
+                  <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 9: CERVEZA IPA CRAFT -->
+        <article
+          class="product-card bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+          data-category="bebidas"
+          data-name="cerveza ipa artesanal bebida birra"
+        >
+          <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+            <img
+              src="https://images.unsplash.com/photo-1608270586620-248524c67de9?q=80&w=800&auto=format&fit=crop"
+              alt="Cerveza IPA Artesanal"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <span
+              class="absolute top-3 left-3 bg-amber-600 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow"
+            >
+              Tirada
+            </span>
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3
+              class="font-title text-xl font-bold text-stone-900 group-hover:text-brand-600 transition-colors"
+            >
+              IPA Neipa Citra
+            </h3>
+            <p
+              class="text-stone-500 text-xs mt-2 mb-4 leading-relaxed line-clamp-2"
+            >
+              Cerveza artesanal de aromas cítricos intensos y amargor
+              equilibrado. Elaboración local.
+            </p>
+
+            <div class="mt-auto space-y-3">
+              <div
+                class="flex items-center justify-between text-xs font-semibold text-stone-600 bg-stone-50 p-1.5 rounded-lg border border-stone-200/60"
+              >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-b1"
+                    value="pinta"
+                    checked
+                    onclick="updatePrice(this, 'b1-price', 4200)"
+                    class="accent-brand-500"
+                  />
+                  Pinta 500ml</label
+                >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-b1"
+                    value="growler"
+                    onclick="updatePrice(this, 'b1-price', 10500)"
+                    class="accent-brand-500"
+                  />
+                  Growler 1.9L</label
+                >
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <span id="b1-price" class="text-lg font-bold text-stone-900"
+                  >$4.200</span
+                >
+                <button
+                  onclick="
+                    addToCart(
+                      'IPA Neipa Citra',
+                      'b1-price',
+                      'https://images.unsplash.com/photo-1608270586620-248524c67de9?q=80&w=800&auto=format&fit=crop',
+                    )
+                  "
+                  class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-brand-500/20"
+                >
+                  <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 10: TRAGO NEGRONI ITALIANO -->
+        <article
+          class="product-card bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+          data-category="bebidas"
+          data-name="negroni cocktail trago bebida gin campari"
+        >
+          <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+            <img
+              src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop"
+              alt="Negroni Clásico"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3
+              class="font-title text-xl font-bold text-stone-900 group-hover:text-brand-600 transition-colors"
+            >
+              Negroni Cask Aged
+            </h3>
+            <p
+              class="text-stone-500 text-xs mt-2 mb-4 leading-relaxed line-clamp-2"
+            >
+              Gin ahumado, Campari y Vermouth Rosso macerados con piel de
+              naranja en barrica de roble.
+            </p>
+
+            <div class="mt-auto space-y-3">
+              <div
+                class="flex items-center justify-between text-xs font-semibold text-stone-600 bg-stone-50 p-1.5 rounded-lg border border-stone-200/60"
+              >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-b2"
+                    value="copa"
+                    checked
+                    onclick="updatePrice(this, 'b2-price', 6500)"
+                    class="accent-brand-500"
+                  />
+                  Vaso Rock</label
+                >
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <span id="b2-price" class="text-lg font-bold text-stone-900"
+                  >$6.500</span
+                >
+                <button
+                  onclick="
+                    addToCart(
+                      'Negroni Cask Aged',
+                      'b2-price',
+                      'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop',
+                    )
+                  "
+                  class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-brand-500/20"
+                >
+                  <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 11: TIRAMISÚ CASERO -->
+        <article
+          class="product-card bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+          data-category="postres"
+          data-name="tiramisu postre dulce cafe mascarpone"
+        >
+          <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+            <img
+              src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?q=80&w=800&auto=format&fit=crop"
+              alt="Tiramisú"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <span
+              class="absolute top-3 left-3 bg-stone-900 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow"
+            >
+              Receta de la casa
+            </span>
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3
+              class="font-title text-xl font-bold text-stone-900 group-hover:text-brand-600 transition-colors"
+            >
+              Tiramisú Tradizionale
+            </h3>
+            <p
+              class="text-stone-500 text-xs mt-2 mb-4 leading-relaxed line-clamp-2"
+            >
+              Vainillas embebidas en café espresso corto y licor de avellanas,
+              crema de queso mascarpone y caco amargo en polvo.
+            </p>
+
+            <div class="mt-auto space-y-3">
+              <div
+                class="flex items-center justify-between text-xs font-semibold text-stone-600 bg-stone-50 p-1.5 rounded-lg border border-stone-200/60"
+              >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-post1"
+                    value="individual"
+                    checked
+                    onclick="updatePrice(this, 'post1-price', 5500)"
+                    class="accent-brand-500"
+                  />
+                  Porción Indiv.</label
+                >
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <span id="post1-price" class="text-lg font-bold text-stone-900"
+                  >$5.500</span
+                >
+                <button
+                  onclick="
+                    addToCart(
+                      'Tiramisú Tradizionale',
+                      'post1-price',
+                      'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?q=80&w=800&auto=format&fit=crop',
+                    )
+                  "
+                  class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-brand-500/20"
+                >
+                  <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ITEM 12: VOLCÁN DE CHOCOLATE -->
+        <article
+          class="product-card bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+          data-category="postres"
+          data-name="volcan chocolate helado postre dulce"
+        >
+          <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+            <img
+              src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=800&auto=format&fit=crop"
+              alt="Volcán de Chocolate"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+          <div class="p-5 flex flex-col flex-grow">
+            <h3
+              class="font-title text-xl font-bold text-stone-900 group-hover:text-brand-600 transition-colors"
+            >
+              Volcán de Chocolate
+            </h3>
+            <p
+              class="text-stone-500 text-xs mt-2 mb-4 leading-relaxed line-clamp-2"
+            >
+              Bizcochuelo tibio con centro líquido de chocolate semiamargo 70%,
+              servido con una bocha de helado de crema americana.
+            </p>
+
+            <div class="mt-auto space-y-3">
+              <div
+                class="flex items-center justify-between text-xs font-semibold text-stone-600 bg-stone-50 p-1.5 rounded-lg border border-stone-200/60"
+              >
+                <label class="cursor-pointer flex items-center gap-1"
+                  ><input
+                    type="radio"
+                    name="size-post2"
+                    value="individual"
+                    checked
+                    onclick="updatePrice(this, 'post2-price', 5900)"
+                    class="accent-brand-500"
+                  />
+                  Con Helado</label
+                >
+              </div>
+
+              <div class="flex items-center justify-between pt-2">
+                <span id="post2-price" class="text-lg font-bold text-stone-900"
+                  >$5.900</span
+                >
+                <button
+                  onclick="
+                    addToCart(
+                      'Volcán de Chocolate',
+                      'post2-price',
+                      'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=800&auto=format&fit=crop',
+                    )
+                  "
+                  class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-all active:scale-95 shadow-md shadow-brand-500/20"
+                >
+                  <i class="fa-solid fa-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <!-- Cart Drawer Overlay -->
+    <div
+      id="cart-overlay"
+      onclick="toggleCart()"
+      class="fixed inset-0 bg-stone-950/60 backdrop-blur-sm z-40 hidden transition-opacity"
+    ></div>
+
+    <!-- Cart Drawer Sidebar -->
+    <aside
+      id="cart-drawer"
+      class="fixed top-0 right-0 h-full w-full sm:w-96 bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col"
+    >
+      <!-- Cart Header -->
+      <div
+        class="p-5 bg-stone-900 text-white flex items-center justify-between border-b border-stone-800"
+      >
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-basket-shopping text-brand-500 text-lg"></i>
+          <h3 class="font-title text-xl font-bold">Tu Pedido</h3>
+        </div>
+        <button
+          onclick="toggleCart()"
+          class="text-stone-400 hover:text-white p-2 rounded-lg transition-colors"
+        >
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Cart Items List -->
+      <div
+        id="cart-items"
+        class="flex-grow p-5 overflow-y-auto divide-y divide-stone-100"
+      >
+        <div
+          id="empty-cart-msg"
+          class="text-center py-16 text-stone-400 space-y-3"
+        >
+          <i class="fa-solid fa-utensils text-4xl text-stone-300"></i>
+          <p class="text-sm">Aún no agregaste ítems al pedido.</p>
+        </div>
+      </div>
+
+      <!-- Cart Footer & Checkout -->
+      <div class="p-5 bg-stone-50 border-t border-stone-200 space-y-4">
+        <div class="space-y-1 text-sm">
+          <div class="flex justify-between text-stone-500">
+            <span>Subtotal</span>
+            <span id="cart-subtotal">$0</span>
+          </div>
+          <div class="flex justify-between text-stone-500">
+            <span>Envío estimado</span>
+            <span class="text-emerald-600 font-medium">Gratis</span>
+          </div>
+          <div
+            class="flex justify-between text-stone-900 text-base font-bold pt-2 border-t border-stone-200"
+          >
+            <span>Total</span>
+            <span id="cart-total" class="text-brand-600">$0</span>
+          </div>
+        </div>
+
+        <button
+          onclick="checkoutWhatsApp()"
+          class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-600/20 active:scale-98"
+        >
+          <i class="fa-brands fa-whatsapp text-lg"></i> Enviar Pedido por
+          WhatsApp
+        </button>
+      </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer
+      class="mt-24 bg-brand-dark text-stone-400 pt-16 pb-12 border-t border-stone-800"
+      id="contacto"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10"
+      >
+        <!-- Col 1: Brand Info -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-9 h-9 rounded-xl bg-brand-500 flex items-center justify-center text-stone-950 font-bold"
+            >
+              <i class="fa-solid fa-pizza-slice"></i>
+            </div>
+            <span class="font-title text-xl font-bold text-white"
+              >Craft & Pizza</span
+            >
+          </div>
+          <p class="text-xs text-stone-400 leading-relaxed">
+            Pizzería artesanal & bar de cerveza tirada. Dedicados a la
+            excelencia gastronómica con productos de primera calidad.
+          </p>
+        </div>
+
+        <!-- Col 2: Hours -->
+        <div class="space-y-3">
+          <h4 class="text-white text-sm font-bold uppercase tracking-wider">
+            Horarios
+          </h4>
+          <ul class="text-xs space-y-2">
+            <li class="flex justify-between">
+              <span>Martes a Jueves:</span>
+              <span class="text-stone-200">19:00 - 00:00</span>
+            </li>
+            <li class="flex justify-between">
+              <span>Viernes y Sábados:</span>
+              <span class="text-stone-200">19:00 - 01:30</span>
+            </li>
+            <li class="flex justify-between">
+              <span>Domingos:</span>
+              <span class="text-stone-200">19:00 - 00:00</span>
+            </li>
+            <li class="flex justify-between text-brand-500">
+              <span>Lunes:</span> <span>Cerrado</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Contact & Location -->
+        <div class="space-y-3">
+          <h4 class="text-white text-sm font-bold uppercase tracking-wider">
+            Sucursal & Contacto
+          </h4>
+          <div class="text-xs space-y-2">
+            <p>
+              <i class="fa-solid fa-location-dot text-brand-500 mr-2"></i> Av.
+              Corrientes 1420, CABA
+            </p>
+            <p>
+              <i class="fa-solid fa-phone text-brand-500 mr-2"></i> +54 11
+              4982-1100
+            </p>
+            <p>
+              <i class="fa-brands fa-whatsapp text-brand-500 mr-2"></i> +54 9 11
+              2345-6789
+            </p>
+          </div>
+        </div>
+
+        <!-- Col 4: Socials -->
+        <div class="space-y-3">
+          <h4 class="text-white text-sm font-bold uppercase tracking-wider">
+            Seguinos
+          </h4>
+          <div class="flex items-center gap-3">
+            <a
+              href="#"
+              class="w-9 h-9 rounded-xl bg-stone-800 hover:bg-brand-500 hover:text-white text-stone-300 flex items-center justify-center transition-colors"
+            >
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a
+              href="#"
+              class="w-9 h-9 rounded-xl bg-stone-800 hover:bg-brand-500 hover:text-white text-stone-300 flex items-center justify-center transition-colors"
+            >
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a
+              href="#"
+              class="w-9 h-9 rounded-xl bg-stone-800 hover:bg-brand-500 hover:text-white text-stone-300 flex items-center justify-center transition-colors"
+            >
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-stone-800/60 text-center text-xs text-stone-500"
+      >
+        <p>© 2026 Pizzeria & Craft House. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+
+    <script>
+      // State management for cart
+      let cart = [];
+
+      // Helper: Price format
+      function formatCurrency(num) {
+        return "$" + num.toLocaleString("es-AR");
+      }
+
+      // Dynamic price updating based on radio selection
+      function updatePrice(radioElement, targetId, newPrice) {
+        const target = document.getElementById(targetId);
+        if (target) {
+          target.innerText = formatCurrency(newPrice);
+        }
+      }
+
+      // Category Filtering
+      function filterCategory(category) {
+        // Buttons active state
+        const buttons = document.querySelectorAll(".cat-btn");
+        buttons.forEach((btn) => {
+          btn.classList.remove(
+            "bg-brand-500",
+            "text-white",
+            "shadow-md",
+            "shadow-brand-500/20",
+          );
+          btn.classList.add("bg-stone-800", "text-stone-300");
+        });
+
+        event.currentTarget.classList.remove("bg-stone-800", "text-stone-300");
+        event.currentTarget.classList.add(
+          "bg-brand-500",
+          "text-white",
+          "shadow-md",
+          "shadow-brand-500/20",
+        );
+
+        // Filter product cards
+        const cards = document.querySelectorAll(".product-card");
+        let visibleCount = 0;
+
+        cards.forEach((card) => {
+          if (category === "todas" || card.dataset.category === category) {
+            card.style.display = "flex";
+            visibleCount++;
+          } else {
+            card.style.display = "none";
+          }
+        });
+
+        // Update section header
+        const titles = {
+          todas: "Nuestra Carta Completa",
+          pizzas: "Pizzas Artesanales a la Leña",
+          hamburguesas: "Smash Burgers Gourmet",
+          entradas: "Entradas & Para Compartir",
+          bebidas: "Cervezas Artesanales & Tragos",
+          postres: "Postres Caseros",
+        };
+
+        document.getElementById("section-title").innerText =
+          titles[category] || "Menú";
+        document.getElementById("item-count").innerText =
+          `${visibleCount} Opciones disponibles`;
+      }
+
+      // Live Search Filter
+      function searchMenu() {
+        const query = document
+          .getElementById("search-input")
+          .value.toLowerCase()
+          .trim();
+        const cards = document.querySelectorAll(".product-card");
+        let visibleCount = 0;
+
+        cards.forEach((card) => {
+          const name = card.dataset.name;
+          if (name.includes(query)) {
+            card.style.display = "flex";
+            visibleCount++;
+          } else {
+            card.style.display = "none";
+          }
+        });
+
+        document.getElementById("item-count").innerText =
+          `${visibleCount} Opciones encontradas`;
+      }
+
+      // Cart Drawer Toggle
+      function toggleCart() {
+        const drawer = document.getElementById("cart-drawer");
+        const overlay = document.getElementById("cart-overlay");
+
+        drawer.classList.toggle("translate-x-full");
+        overlay.classList.toggle("hidden");
+      }
+
+      // Add Item to Cart
+      function addToCart(title, priceId, imgUrl) {
+        const priceText = document.getElementById(priceId).innerText;
+        const rawPrice = parseInt(priceText.replace(/[^0-9]/g, ""));
+
+        const existingIndex = cart.findIndex((item) => item.title === title);
+
+        if (existingIndex > -1) {
+          cart[existingIndex].quantity += 1;
+        } else {
+          cart.push({
+            title: title,
+            price: rawPrice,
+            image: imgUrl,
+            quantity: 1,
+          });
+        }
+
+        renderCart();
+
+        // Auto open cart on first add or brief feedback
+        const cartCountEl = document.getElementById("cart-count");
+        cartCountEl.classList.add("scale-125");
+        setTimeout(() => cartCountEl.classList.remove("scale-125"), 200);
+      }
+
+      // Remove Item or Change Qty
+      function changeQty(index, delta) {
+        cart[index].quantity += delta;
+        if (cart[index].quantity <= 0) {
+          cart.splice(index, 1);
+        }
+        renderCart();
+      }
+
+      // Render Cart HTML & Totals
+      function renderCart() {
+        const cartContainer = document.getElementById("cart-items");
+        const emptyMsg = document.getElementById("empty-cart-msg");
+        const cartCountEl = document.getElementById("cart-count");
+        const cartSubtotalEl = document.getElementById("cart-subtotal");
+        const cartTotalEl = document.getElementById("cart-total");
+
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCountEl.innerText = totalItems;
+
+        if (cart.length === 0) {
+          cartContainer.innerHTML = "";
+          cartContainer.appendChild(emptyMsg);
+          cartSubtotalEl.innerText = "$0";
+          cartTotalEl.innerText = "$0";
+          return;
+        }
+
+        let subtotal = 0;
+        let html = "";
+
+        cart.forEach((item, index) => {
+          const itemTotal = item.price * item.quantity;
+          subtotal += itemTotal;
+
+          html += `
+          <div class="py-4 flex items-center gap-3">
+            <img src="${item.image}" class="w-14 h-14 rounded-xl object-cover border border-stone-200">
+            <div class="flex-grow">
+              <h4 class="text-xs font-bold text-stone-900">${item.title}</h4>
+              <p class="text-xs font-semibold text-brand-600 mt-0.5">${formatCurrency(item.price)}</p>
+              <div class="flex items-center gap-2 mt-2">
+                <button onclick="changeQty(${index}, -1)" class="w-5 h-5 rounded bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs flex items-center justify-center font-bold">-</button>
+                <span class="text-xs font-bold w-4 text-center">${item.quantity}</span>
+                <button onclick="changeQty(${index}, 1)" class="w-5 h-5 rounded bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs flex items-center justify-center font-bold">+</button>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-stone-900">${formatCurrency(itemTotal)}</span>
+          </div>
+        `;
+        });
+
+        cartContainer.innerHTML = html;
+        cartSubtotalEl.innerText = formatCurrency(subtotal);
+        cartTotalEl.innerText = formatCurrency(subtotal);
+      }
+
+      // Checkout to WhatsApp
+      function checkoutWhatsApp() {
+        if (cart.length === 0) {
+          alert("Agregá al menos un ítem a tu pedido antes de continuar.");
+          return;
+        }
+
+        let text =
+          "Hola *Pizzeria & Craft House*, me gustaría realizar el siguiente pedido:\n\n";
+        let total = 0;
+
+        cart.forEach((item) => {
+          const itemTotal = item.price * item.quantity;
+          total += itemTotal;
+          text += `• ${item.quantity}x ${item.title} - ${formatCurrency(itemTotal)}\n`;
+        });
+
+        text += `\n*Total estimado:* ${formatCurrency(total)}\n`;
+        text += "📍 *Dirección de entrega:* (Completar aquí)\n";
+        text += "💳 *Método de pago:* (Efectivo / Transferencia)";
+
+        const encodedText = encodeURIComponent(text);
+        window.open(
+          `https://wa.me/5491123456789?text=${encodedText}`,
+          "_blank",
+        );
+      }
+    </script>
+  </body>
+</html>
